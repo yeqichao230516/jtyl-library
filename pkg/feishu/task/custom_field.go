@@ -8,9 +8,9 @@ import (
 	larktask "github.com/larksuite/oapi-sdk-go/v3/service/task/v2"
 )
 
-func GetCustomFieldByGuid(fields []string, client *lark.Client) ([]string, error) {
+func GetCustomFieldIDsMultipleByGuid(guid string, fields []string, client *lark.Client) ([]string, error) {
 	req := larktask.NewGetCustomFieldReqBuilder().
-		CustomFieldGuid(`55de3672-aeb9-4438-a988-691d2b5d3284`).
+		CustomFieldGuid(guid).
 		Build()
 
 	resp, err := client.Task.V2.CustomField.Get(context.Background(), req)
@@ -30,4 +30,25 @@ func GetCustomFieldByGuid(fields []string, client *lark.Client) ([]string, error
 		}
 	}
 	return result, nil
+}
+
+func GetCustomFieldIDSingleByGuid(guid string, field string, client *lark.Client) (string, error) {
+	req := larktask.NewGetCustomFieldReqBuilder().
+		CustomFieldGuid(guid).
+		Build()
+
+	resp, err := client.Task.V2.CustomField.Get(context.Background(), req)
+	if err != nil {
+		return "", err
+	}
+
+	if !resp.Success() {
+		return "", fmt.Errorf("请求失败: %s", resp.CodeError.Msg)
+	}
+	for _, options := range resp.Data.CustomField.SingleSelectSetting.Options {
+		if options.Name != nil && *options.Name == field {
+			return *options.Guid, nil
+		}
+	}
+	return "", nil
 }
