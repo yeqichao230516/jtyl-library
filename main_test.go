@@ -14,3 +14,11 @@ func TestMain(t *testing.T) {
 	}
 	t.Log("Task deleted successfully")
 }
+
+func TestCompleteTask(t *testing.T) {
+	err := feishu_task.CompleteTask("31717367-daad-46eb-91f7-1b2498ee44ed", system.FeiShu("cli_a81807b812b7901c", "wGTNLAxJiZBCoBvht4b7UbeBmSkWprYw"))
+	if err != nil {
+		t.Fatal(err)
+	}
+	t.Log("Task completed successfully")
+}
