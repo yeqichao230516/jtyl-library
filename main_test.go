@@ -4,6 +4,7 @@ import (
 	"fmt"
 	"testing"
 
+	feishu_address_book "github.com/yeqichao230516/jtyl-library/pkg/feishu/address_book"
 	feishu_bitable "github.com/yeqichao230516/jtyl-library/pkg/feishu/bitable"
 	feishu_task "github.com/yeqichao230516/jtyl-library/pkg/feishu/task"
 	"github.com/yeqichao230516/jtyl-library/pkg/system"
@@ -56,4 +57,12 @@ func TestUpdateRecord(t *testing.T) {
 		t.Fatal(err)
 	}
 	t.Log("Record updated successfully")
+}
+
+func TestGetUserNameByOpenID(t *testing.T) {
+	name, err := feishu_address_book.GetUserNameByOpenID("ou_735b7a06fed3635057a6a24bf178edb2", system.FeiShu("cli_a81807b812b7901c", "wGTNLAxJiZBCoBvht4b7UbeBmSkWprYw"))
+	if err != nil {
+		t.Fatal(err)
+	}
+	t.Log("User name:", name)
 }
