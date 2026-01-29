@@ -66,3 +66,15 @@ func TestGetUserNameByOpenID(t *testing.T) {
 	}
 	t.Log("User name:", name)
 }
+
+func TestDownloadAttachment(t *testing.T) {
+	nameList, urlList, err := feishu_task.GetAttachmentDetailsFromTask("ba011d87-6663-43f8-a639-ab402987593d", system.FeiShu("cli_a81807b812b7901c", "wGTNLAxJiZBCoBvht4b7UbeBmSkWprYw"))
+	if err != nil {
+		t.Fatal(err)
+	}
+	filePath, err := feishu_task.DownloadAttachments(nameList, urlList, "./downloads")
+	if err != nil {
+		t.Fatal(err)
+	}
+	t.Log("File downloaded to:", filePath)
+}
