@@ -4,6 +4,7 @@ import (
 	"fmt"
 	"testing"
 
+	feishu_bitable "github.com/yeqichao230516/jtyl-library/pkg/feishu/bitable"
 	feishu_task "github.com/yeqichao230516/jtyl-library/pkg/feishu/task"
 	"github.com/yeqichao230516/jtyl-library/pkg/system"
 )
@@ -47,4 +48,12 @@ func TestGetComments(t *testing.T) {
 		fmt.Printf("Comment: %s\n", *comment.Creator.Id)
 		fmt.Printf("Comment: %s\n", *comment.Content)
 	}
+}
+
+func TestUpdateRecord(t *testing.T) {
+	err := feishu_bitable.UpdateRecord("V8AxbmAOXapXQesLIIFcJbkunae", "tblFuFNqnSyQfDBl", "recv9n66O7A1h3", map[string]any{"任务评论": "人员1：测试评论详情\n人员2：你好"}, system.FeiShu("cli_a81807b812b7901c", "wGTNLAxJiZBCoBvht4b7UbeBmSkWprYw"))
+	if err != nil {
+		t.Fatal(err)
+	}
+	t.Log("Record updated successfully")
 }
