@@ -37,3 +37,14 @@ func TestGetTask(t *testing.T) {
 	// data, _ := json.Marshal(task.CustomFields)
 	// fmt.Printf("Task details:\n%s\n", string(data))
 }
+
+func TestGetComments(t *testing.T) {
+	comments, err := feishu_task.GetComments("ba011d87-6663-43f8-a639-ab402987593d", system.FeiShu("cli_a81807b812b7901c", "wGTNLAxJiZBCoBvht4b7UbeBmSkWprYw"))
+	if err != nil {
+		t.Fatal(err)
+	}
+	for _, comment := range comments.Items {
+		fmt.Printf("Comment: %s\n", *comment.Creator.Id)
+		fmt.Printf("Comment: %s\n", *comment.Content)
+	}
+}
